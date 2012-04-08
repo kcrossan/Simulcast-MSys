@@ -1,0 +1,94 @@
+--- a/configure	2010-12-05 04:04:54 -0800
++++ b/configure	2010-12-04 05:19:17 -0800
+@@ -12749,16 +12749,16 @@
+ if test -z "`$INTLTOOL_PERL -v | fgrep '5.' 2> /dev/null`"; then
+    as_fn_error $? "perl 5.x required for intltool" "$LINENO" 5
+ fi
+-if test "x" != "xno-xml"; then
+-   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for XML::Parser" >&5
+-$as_echo_n "checking for XML::Parser... " >&6; }
+-   if `$INTLTOOL_PERL -e "require XML::Parser" 2>/dev/null`; then
+-       { $as_echo "$as_me:${as_lineno-$LINENO}: result: ok" >&5
+-$as_echo "ok" >&6; }
+-   else
+-       as_fn_error $? "XML::Parser perl module is required for intltool" "$LINENO" 5
+-   fi
+-fi
++# if test "x" != "xno-xml"; then
++   # { $as_echo "$as_me:${as_lineno-$LINENO}: checking for XML::Parser" >&5
++# $as_echo_n "checking for XML::Parser... " >&6; }
++   # if `$INTLTOOL_PERL -e "require XML::Parser" 2>/dev/null`; then
++       # { $as_echo "$as_me:${as_lineno-$LINENO}: result: ok" >&5
++# $as_echo "ok" >&6; }
++   # else
++       # as_fn_error $? "XML::Parser perl module is required for intltool" "$LINENO" 5
++   # fi
++# fi
+ 
+ # Substitute ALL_LINGUAS so we can use it in po/Makefile
+ 
+diff --git a/mx/mx-create-image-cache.c b/mx/mx-create-image-cache.c
+index ed52ded..f333fe7 100644
+--- a/mx/mx-create-image-cache.c
++++ b/mx/mx-create-image-cache.c
+@@ -24,6 +24,7 @@
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include <sys/types.h>
++#include <sys/stat.h>
+ #include <dirent.h>
+ #include <string.h>
+ #include <assert.h>
+@@ -395,13 +396,18 @@ static void makecache(char *directory,
+         break;
+       if (entry->d_name[0] == '.')
+         continue;
+-      if (entry->d_type == DT_DIR && recurse) {
++
++	  struct stat stbuf;
++	  if(stat(entry->d_name, &stbuf))
++		continue;
++
++      if (stbuf.st_mode == S_IFDIR && recurse) {
+           char newdir[2*PATH_MAX];
+           sprintf(newdir, "%s/%s", directory, entry->d_name);
+           makecache(newdir, recurse);
+         }
+ 
+-      if (entry->d_type == DT_REG) {
++      if (stbuf.st_mode == S_IFREG) {
+           char fullpath[2*PATH_MAX];
+           sprintf(fullpath, "%s/%s", directory, entry->d_name);
+           do_one_file(fullpath);
+
+diff -u mx-1.1.10/mx/mx-image.c mx-image.c 
+--- a/mx/mx-image.c     2011-03-17 04:09:07 -0700
++++ b/mx/mx-image.c  2011-04-24 00:22:38 -0700
+@@ -1194,8 +1194,12 @@
+   /* Load the pixbuf in a thread, then later on upload it to the GPU */
+   if (!mx_image_threads)
+     {
+-      mx_image_threads = g_thread_pool_new (mx_image_async_cb, NULL,
+-                                            sysconf (_SC_NPROCESSORS_ONLN),
++      SYSTEM_INFO sysinfo;
++      GetSystemInfo( &sysinfo );
++      gint numCPU = sysinfo.dwNumberOfProcessors;
++
++         mx_image_threads = g_thread_pool_new (mx_image_async_cb, NULL,
++                                            numCPU,
+                                             FALSE, &err);
+       if (!mx_image_threads)
+         {
+
+diff -u mx-1.1.10/mx/mx-settings.c mx-settings.c 
+--- a/mx/mx-settings.c  2011-03-17 04:09:07 -0700
++++ b/mx/mx-settings.c       2011-04-24 14:08:31 -0700
+@@ -360,7 +360,7 @@
+ 
+   /* Setup defaults */
+   priv->icon_theme = g_strdup ("hicolor");
+-  priv->font_name = g_strdup ("Sans 10");
++  priv->font_name = g_strdup ("Arial");
+   priv->long_press_timeout = 500;
+   priv->small_screen = FALSE;
+   priv->drag_threshold = 8;
