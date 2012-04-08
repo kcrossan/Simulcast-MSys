@@ -78,13 +78,15 @@ MAKE_FLAGS="-j$NUMBER_OF_PROCESSORS LDFLAGS=-no-undefined"
 	# fi
 	# cd $CUR_DIR
 # fi
-if ! grep -q 'Version: 1.10.2' /mingw/lib/pkgconfig/cairo.pc; then
+if ! grep -q 'Version: 1.12.0' /mingw/lib/pkgconfig/cairo.pc; then
 	change_title 'Building Cairo'
-	if [[ ! -d 'cairo-1.10.2' ]]; then
-		wget -c http://cairographics.org/releases/cairo-1.10.2.tar.gz
-		tar -xvf cairo-1.10.2.tar.gz
+	if [[ ! -d 'cairo-1.12.0' ]]; then
+		wget -c http://cairographics.org/releases/cairo-1.12.0.tar.gz
+		tar -xvf cairo-1.12.0.tar.gz
+		sed -i 's/typedef SSIZE_T ssize_t;//' cairo-1.12.0/util/cairo-missing/cairo-missing.h
+		sed -i 's/_write/__write/' cairo-1.12.0/test/any2ppm.c
 	fi
-	cd cairo-1.10.2
+	cd cairo-1.12.0
 	./configure $CONF_FLAGS && make $MAKE_FLAGS && make uninstall && make install
 	if (($?)); then
 		echo "Failed to build Cairo";
@@ -94,13 +96,13 @@ if ! grep -q 'Version: 1.10.2' /mingw/lib/pkgconfig/cairo.pc; then
 fi
 
 #get the json-glib library
-if ! grep -q 'Version: 0.12.4' /mingw/lib/pkgconfig/json-glib-1.0.pc; then
+if ! grep -q 'Version: 0.14.2' /mingw/lib/pkgconfig/json-glib-1.0.pc; then
 	change_title 'Building json-glib'
-	if [[ ! -d 'json-glib-0.12.4' ]]; then
-		wget -c http://ftp.gnome.org/pub/GNOME/sources/json-glib/0.12/json-glib-0.12.4.tar.bz2
-		tar -xvf json-glib-0.12.4.tar.bz2
+	if [[ ! -d 'json-glib-0.14.2' ]]; then
+		wget -c http://ftp.acc.umu.se/pub/GNOME/sources/json-glib/0.14/json-glib-0.14.2.tar.xz
+		tar -xvf json-glib-0.14.2.tar.xz
 	fi
-	cd json-glib-0.12.4
+	cd json-glib-0.14.2
 	./configure $CONF_FLAGS && make $MAKE_FLAGS && make install 
 	if (($?)); then
 		echo "Failed to build json-glib";
@@ -197,13 +199,13 @@ if [[ ! -f "$PREFIX/include/GL/mesa_wgl.h" ]]; then
 fi
 
 #get GLEW
-if ! grep -q 'Version: 1.5.7' /mingw/lib/pkgconfig/glew.pc; then
+if ! grep -q 'Version: 1.7.0' /mingw/lib/pkgconfig/glew.pc; then
 	change_title 'Building GLEW'
-	if [[ ! -d 'glew-1.5.7' ]]; then
-		wget -cNt 3 http://sourceforge.net/projects/glew/files/glew/1.5.7/glew-1.5.7.tgz/download
-		tar -xvf glew-1.5.7.tgz
+	if [[ ! -d 'glew-1.7.0' ]]; then
+		wget -cNt 3 http://sourceforge.net/projects/glew/files/glew/1.7.0/glew-1.7.0.tgz/download
+		tar -xvf glew-1.7.0.tgz
 	fi
-	cd glew-1.5.7
+	cd glew-1.7.0
 	make && make install GLEW_DEST=$PREFIX 
 	if (($?)); then
 		echo "Failed to build GLEW";
@@ -213,13 +215,13 @@ if ! grep -q 'Version: 1.5.7' /mingw/lib/pkgconfig/glew.pc; then
 fi
 
 #get ORC
-if ! grep -q 'Version: 0.4.11' /mingw/lib/pkgconfig/orc-0.4.pc; then
+if ! grep -q 'Version: 0.4.16' /mingw/lib/pkgconfig/orc-0.4.pc; then
 	change_title 'Building ORC'
-	if [[ ! -d 'orc-0.4.11' ]]; then
-		wget -c http://code.entropywave.com/download/orc/orc-0.4.11.tar.gz;
-		tar -xvf orc-0.4.11.tar.gz;
+	if [[ ! -d 'orc-0.4.16' ]]; then
+		wget -c http://code.entropywave.com/download/orc/orc-0.4.16.tar.gz
+		tar -xvf orc-0.4.16.tar.gz;
 	fi
-	cd orc-0.4.11
+	cd orc-0.4.16
 	./configure $CONF_FLAGS && make $MAKE_FLAGS && make install 
 	if (($?)); then
 		echo "Failed to build ORC";
@@ -229,13 +231,14 @@ if ! grep -q 'Version: 0.4.11' /mingw/lib/pkgconfig/orc-0.4.pc; then
 fi
 
 #get Schroedinger
-if ! grep -q 'Version: 1.0.9' /mingw/lib/pkgconfig/schroedinger-1.0.pc; then
+if ! grep -q 'Version: 1.0.11' /mingw/lib/pkgconfig/schroedinger-1.0.pc; then
 	change_title 'Building Schroedinger'
-	if [[ ! -d 'schroedinger-1.0.9' ]]; then
-		wget -c http://diracvideo.org/download/schroedinger/schroedinger-1.0.9.tar.gz;
-		tar -xvf schroedinger-1.0.9.tar.gz;
+	if [[ ! -d 'schroedinger-1.0.11' ]]; then
+		wget -c http://diracvideo.org/download/schroedinger/schroedinger-1.0.11.tar.gz
+		tar -xvf schroedinger-1.0.11.tar.gz
+		sed -i 's/ testsuite//' schroedinger-1.0.11/Makefile*
 	fi
-	cd schroedinger-1.0.9
+	cd schroedinger-1.0.11
 	./configure $CONF_FLAGS && make $MAKE_FLAGS && make install 
 	if (($?)); then
 		echo "Failed to build Schroedinger";
@@ -248,7 +251,7 @@ fi
 if ! /mingw/bin/faac.exe | grep -q 'FAAC 1.28'; then
 	change_title 'Building FAAC'
 	if [[ ! -d 'faac-1.28' ]]; then
-		wget -c http://downloads.sourceforge.net/faac/faac-1.28.tar.bz2;
+		wget -c http://downloads.sourceforge.net/faac/faac-1.28.tar.bz2
 		tar -xvf faac-1.28.tar.bz2;
 	fi
 	cd faac-1.28
@@ -275,22 +278,22 @@ fi
 # cd $CUR_DIR
 
 #get mjpegtools
-if ! grep -q 'Version: 1.9.0' /mingw/lib/pkgconfig/mjpegtools.pc; then
+if ! grep -q 'Version: 2.0.0' /mingw/lib/pkgconfig/mjpegtools.pc; then
 	change_title 'Downloading/Extracting mjpegtools'
-	if [[ ! -f mjpegtools-1.9.0-mingw-bin.tar.bz2 ]]; then
-		wget -cNt 3 http://sourceforge.net/projects/mjpeg/files/mjpegtools/1.9.0/mjpegtools-1.9.0-mingw-bin.tar.bz2/download
+	if [[ ! -f mjpegtools-2.0.0-mingw-bin.tar.bz2 ]]; then
+		wget -cNt 3 http://sourceforge.net/projects/mjpeg/files/mjpegtools/2.0.0/mjpegtools-2.0.0-mingw-bin.tar.bz2/download
 	fi
-	tar -xvf mjpegtools-1.9.0-mingw-bin.tar.bz2 -C $PREFIX
+	tar -xvf mjpegtools-2.0.0-mingw-bin.tar.bz2 -C $PREFIX
 fi
 
 #get SDL
-if ! grep -q 'Version: 1.2.14' /mingw/lib/pkgconfig/sdl.pc; then
+if ! grep -q 'Version: 1.2.15' /mingw/lib/pkgconfig/sdl.pc; then
 	change_title 'Building SDL'
-	if [[ ! -d 'SDL-1.2.14' ]]; then
-		wget -c http://www.libsdl.org/release/SDL-1.2.14.tar.gz;
-		tar -xvf SDL-1.2.14.tar.gz;
+	if [[ ! -d 'SDL-1.2.15' ]]; then
+		wget -c http://www.libsdl.org/release/SDL-1.2.15.tar.gz
+		tar -xvf SDL-1.2.15.tar.gz;
 	fi
-	cd SDL-1.2.14
+	cd SDL-1.2.15
 	./configure $CONF_FLAGS && make $MAKE_FLAGS && make install 
 	if (($?)); then
 		echo "Failed to build SDL";
@@ -303,7 +306,7 @@ fi
 if [[ ! -f '/mingw/bin/libxvidcore.dll' ]]; then
 	change_title 'Building XviD'
 	if [[ ! -d 'xvidcore' ]]; then
-		wget -c ftp://ftp.ucsb.edu/pub/mirrors/linux/gentoo/distfiles/xvidcore-1.3.2.tar.bz2
+		wget -c http://downloads.xvid.org/downloads/xvidcore-1.3.2.tar.bz2
 		tar -xvf xvidcore-1.3.2.tar.bz2
 	fi
 	cd xvidcore/build/generic
@@ -319,13 +322,13 @@ if [[ ! -f '/mingw/bin/libxvidcore.dll' ]]; then
 fi
 
 #get LAME
-if ! /mingw/bin/lame.exe 2>&1 | grep -q 'version 3.99.3'; then
+if ! /mingw/bin/lame.exe 2>&1 | grep -q 'version 3.99.5'; then
 	change_title 'Building LAME'
-	if [[ ! -d 'lame-3.99.3' ]]; then
-		wget -cNt 3 http://sourceforge.net/projects/lame/files/lame/3.99.3/lame-3.99.3.tar.gz/download;
-		tar -xvf lame-3.99.3.tar.gz;
+	if [[ ! -d 'lame-3.99.5' ]]; then
+		wget -cNt 3 http://sourceforge.net/projects/lame/files/lame/3.99/lame-3.99.5.tar.gz/download
+		tar -xvf lame-3.99.5.tar.gz;
 	fi
-	cd lame-3.99.3
+	cd lame-3.99.5
 	./configure $CONF_FLAGS && make $MAKE_FLAGS && make install 
 	if (($?)); then
 		echo "Failed to build LAME";
@@ -335,13 +338,13 @@ if ! /mingw/bin/lame.exe 2>&1 | grep -q 'version 3.99.3'; then
 fi
 
 #get openssl
-if ! grep -q 'Version: 1.0.0d' /mingw/lib/pkgconfig/openssl.pc; then
+if ! grep -q 'Version: 1.0.1' /mingw/lib/pkgconfig/openssl.pc; then
 change_title 'Building OpenSSL'
-	if [[ ! -d 'openssl-1.0.0d' ]]; then
-		wget -c http://www.openssl.org/source/openssl-1.0.0d.tar.gz
-		tar -xvf openssl-1.0.0d.tar.gz
+	if [[ ! -d 'openssl-1.0.1' ]]; then
+		wget -c http://www.openssl.org/source/openssl-1.0.1.tar.gz
+		tar -xvf openssl-1.0.1.tar.gz
 	fi
-	cd openssl-1.0.0d
+	cd openssl-1.0.1
 	./config --prefix=${PREFIX} && make && make install 
 	if (($?)); then
 		echo "Failed to build openssl";
@@ -351,13 +354,13 @@ change_title 'Building OpenSSL'
 fi
 
 #get Vala
-if ! grep -q 'Version: 0.15.0' /mingw/lib/pkgconfig/libvala-0.16.pc; then
+if ! grep -q 'Version: 0.16.0' /mingw/lib/pkgconfig/libvala-0.16.pc; then
 	change_title 'Building Vala'
-	if [[ ! -d 'vala-0.15.0' ]]; then
-		wget -c http://download.gnome.org/sources/vala/0.15/vala-0.15.0.tar.xz
-		tar -xvf vala-0.15.0.tar.xz
+	if [[ ! -d 'vala-0.16.0' ]]; then
+		wget -c http://ftp.gnome.org/pub/GNOME/sources/vala/0.16/vala-0.16.0.tar.xz
+		tar -xvf vala-0.16.0.tar.xz
 	fi
-	cd vala-0.15.0
+	cd vala-0.16.0
 	./configure $CONF_FLAGS --disable-vapigen && make $MAKE_FLAGS && make install 
 	if (($?)); then
 		echo "Failed to build Vala";
@@ -395,13 +398,13 @@ fi
 # cd $CUR_DIR
 
 #get libgee
-if ! grep -q 'Version: 0.6.3' /mingw/lib/pkgconfig/gee-1.0.pc; then
+if ! grep -q 'Version: 0.6.4' /mingw/lib/pkgconfig/gee-1.0.pc; then
 	change_title 'Building libgee'
-	if [[ ! -d 'libgee-0.6.3' ]]; then
-		wget -c http://download.gnome.org/sources/libgee/0.6/libgee-0.6.3.tar.xz
-		tar -xvf libgee-0.6.3.tar.xz
+	if [[ ! -d 'libgee-0.6.4' ]]; then
+		wget -c http://ftp.acc.umu.se/pub/GNOME/sources/libgee/0.6/libgee-0.6.4.tar.xz
+		tar -xvf libgee-0.6.4.tar.xz
 	fi
-	cd libgee-0.6.3
+	cd libgee-0.6.4
 	./configure $CONF_FLAGS && make $MAKE_FLAGS && make install 
 	if (($?)); then
 		echo "Failed to build libgee";
@@ -443,18 +446,15 @@ if ! grep -q 'Version: 1.8.2' /mingw/lib/pkgconfig/cogl-1.0.pc; then
 fi
 
 #get clutter
-if ! grep -q 'Version: 1.8.2' /mingw/lib/pkgconfig/clutter-1.0.pc; then
+if ! grep -q 'Version: 1.8.4' /mingw/lib/pkgconfig/clutter-1.0.pc; then
 	change_title 'Building Clutter'
-	if [[ ! -d 'clutter-1.8.2' ]]; then
-		wget -c http://source.clutter-project.org/sources/clutter/1.8/clutter-1.8.2.tar.xz
-		tar -xvf clutter-1.8.2.tar.xz
+	if [[ ! -d 'clutter-1.8.4' ]]; then
+		wget -c http://source.clutter-project.org/sources/clutter/1.8/clutter-1.8.4.tar.xz
+		tar -xvf clutter-1.8.4.tar.xz
+		wget -O clutter.patch "http://bugzilla-attachments.gnome.org/attachment.cgi?id=207534&action=diff&collapsed=&context=patch&format=raw&headers=1"
 	fi
-	cd clutter-1.8.2
-	#sed -e 's/^\(SUBDIRS =\).*/\1/g' \
-	#	-i tests/Makefile.am || die "am tests sed failed"
-	#sed -e 's/^\(SUBDIRS =\).*/\1/g' \
-	#	-i tests/Makefile.in || die "in tests sed failed"
-	#./autogen.sh $CONF_FLAGS --with-flavour=win32 && make $MAKE_FLAGS && make install
+	cd clutter-1.8.4
+	patch -f -p1 < ../clutter.patch
 	./configure $CONF_FLAGS && make $MAKE_FLAGS && make install
 	if (($?)); then
 		echo "Failed to build Clutter";
@@ -538,13 +538,13 @@ if ! grep -q 'Version: 1.4.0' /lib/pkgconfig/libopenjpeg.pc; then
 fi
 
 #get Poppler
-if ! grep -q 'Version: 0.18.3' /mingw/lib/pkgconfig/poppler.pc; then
+if ! grep -q 'Version: 0.18.4' /mingw/lib/pkgconfig/poppler.pc; then
 	change_title 'Building Poppler'
-	if [[ ! -d 'poppler-0.18.3' ]]; then
-		wget -c http://poppler.freedesktop.org/poppler-0.18.3.tar.gz
-		tar -xvf poppler-0.18.3.tar.gz
+	if [[ ! -d 'poppler-0.18.4' ]]; then
+		wget -c http://poppler.freedesktop.org/poppler-0.18.4.tar.gz
+		tar -xvf poppler-0.18.4.tar.gz
 	fi
-	cd poppler-0.18.3
+	cd poppler-0.18.4
 	./configure $CONF_FLAGS && make $MAKE_FLAGS && make install 
 	if (($?)); then
 		echo "Failed to build Poppler";
@@ -618,13 +618,13 @@ if ! grep -q 'Version: 1.3.0' /mingw/lib/pkgconfig/ogg.pc; then
 fi
 
 #get libvorbis
-if ! grep -q 'Version: 1.3.2' /mingw/lib/pkgconfig/vorbis.pc; then
+if ! grep -q 'Version: 1.3.3' /mingw/lib/pkgconfig/vorbis.pc; then
 	change_title 'Building libvorbis'
-	if [[ ! -d 'libvorbis-1.3.2' ]]; then
-		wget -c http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.2.tar.bz2
-		tar -xvf libvorbis-1.3.2.tar.bz2
+	if [[ ! -d 'libvorbis-1.3.3' ]]; then
+		wget -c http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.3.tar.xz
+		tar -xvf libvorbis-1.3.3.tar.xz
 	fi
-	cd libvorbis-1.3.2
+	cd libvorbis-1.3.3
 	./configure $CONF_FLAGS && make $MAKE_FLAGS && make install 
 	if (($?)); then
 		echo "Failed to build libvorbis";
@@ -648,6 +648,73 @@ if [[ ! -f '/mingw/bin/libhpdf-2-2-1.dll' ]]; then
 	fi
 	cd $CUR_DIR
 fi
+
+# #get libapr
+# if ! grep -q 'Version: 1.4.6' /mingw/lib/pkgconfig/apr-1.pc; then
+	# change_title 'Building libapr'
+	# if [[ ! -d 'apr-1.4.6' ]]; then
+		# wget -c http://apache.mirrors.redwire.net/apr/apr-1.4.6.tar.bz2
+		# tar -xvf apr-1.4.6.tar.bz2
+	# fi
+	# cd apr-1.4.6
+	# ./configure $CONF_FLAGS && make $MAKE_FLAGS && make install 
+	# if (($?)); then
+		# echo "Failed to build libapr";
+		# exit 1;
+	# fi
+	# cd $CUR_DIR
+# fi
+
+# #get libapr-util
+# if ! grep -q 'Version: 1.4.1' /mingw/lib/pkgconfig/apr-util-1.pc; then
+	# change_title 'Building libapr-util'
+	# if [[ ! -d 'apr-util-1.4.1' ]]; then
+		# wget -c http://apache.mirrors.redwire.net/apr/apr-util-1.4.1.tar.bz2
+		# tar -xvf apr-util-1.4.1.tar.bz2
+	# fi
+	# cd apr-util-1.4.1
+	# ./configure --with-apr=$PREFIX $CONF_FLAGS && make $MAKE_FLAGS && make install 
+	# if (($?)); then
+		# echo "Failed to build libapr-util";
+		# exit 1;
+	# fi
+	# cd $CUR_DIR
+# fi
+
+# #get subversion
+# if ! grep -q 'Version: 1.7.4' /mingw/lib/pkgconfig/svn.pc; then
+	# change_title 'Building subversion'
+	# if [[ ! -d 'subversion-1.7.4' ]]; then
+		# wget -c http://www.trieuvan.com/apache/subversion/subversion-1.7.4.tar.bz2
+		# tar -xvf subversion-1.7.4.tar.bz2
+		# wget -c http://sqlite.org/sqlite-amalgamation-3070603.zip
+		# unzip sqlite-amalgamation-3070603.zip
+	# fi
+	# cd subversion-1.7.4
+	# sed -i 's/#include <crtdbg.h>//' subversion/libsvn_subr/cmdline.c
+	# ./configure --with-sqlite=../sqlite-amalgamation-3070603/sqlite3.c $CONF_FLAGS && make $MAKE_FLAGS && make install 
+	# if (($?)); then
+		# echo "Failed to build subversion";
+		# exit 1;
+	# fi
+	# cd $CUR_DIR
+# fi
+
+#get subversion
+if ! /mingw/bin/svn --version | grep -q '1.7.4'; then
+	change_title 'Getting subversion'
+	if [[ ! -d 'svn-win32-1.7.4' ]]; then
+		wget -c http://sourceforge.net/projects/win32svn/files/1.7.4/svn-win32-1.7.4.zip
+		unzip svn-win32-1.7.4.zip
+	fi
+	cd svn-win32-1.7.4/bin && cp *.exe *.dll $PREFIX/bin
+	if (($?)); then
+		echo "Failed to get Subversion";
+		exit 1;
+	fi
+	cd $CUR_DIR
+fi
+
 
 #get gstreamer
 if ! gst-inspect-0.10 | grep -q "ffmpeg"; then

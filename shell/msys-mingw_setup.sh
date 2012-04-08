@@ -9,31 +9,29 @@ prepend_mingw_url="http://sourceforge.net/projects/mingw/files/"
 
 #needs to be downloaded first in order to properly untar packages
 msys_BaseSystem_tar="
-MSYS/Base/tar/tar-1.23-1/tar-1.23-1-msys-1.0.13-bin.tar.lzma/download \
 MSYS/Base/tar/tar-1.23-1/tar-1.23-1-msys-1.0.13-doc.tar.lzma/download \
 MSYS/Base/tar/tar-1.23-1/tar-1.23-1-msys-1.0.13-ext.tar.lzma/download \
 MSYS/Base/tar/tar-1.23-1/tar-1.23-1-msys-1.0.13-lang.tar.lzma/download \
 MSYS/Base/tar/tar-1.23-1/tar-1.23-1-msys-1.0.13-lic.tar.lzma/download \
+"
+msys_BaseSystem_tar_old="
+MSYS/Base/tar/tar-1.23-1/tar-1.23-1-msys-1.0.13-bin.tar.lzma/download \
 MSYS/Base/libiconv/libiconv-1.14-1/libiconv-1.14-1-msys-1.0.17-dll-2.tar.lzma/download \
 MSYS/Base/gettext/gettext-0.18.1.1-1/libintl-0.18.1.1-1-msys-1.0.17-dll-8.tar.lzma/download \
 MSYS/Base/regex/regex-1.20090805-2/libregex-1.20090805-2-msys-1.0.13-dll-1.tar.lzma/download \
 "
 
 msys_BaseSystem=" \
-MSYS/Base/bzip2/bzip2-1.0.6-1/bzip2-1.0.6-1-msys-1.0.17-bin.tar.lzma/download \
 MSYS/Base/bzip2/bzip2-1.0.6-1/bzip2-1.0.6-1-msys-1.0.17-doc.tar.lzma/download \
 MSYS/Base/bzip2/bzip2-1.0.6-1/bzip2-1.0.6-1-msys-1.0.17-lic.tar.lzma/download \
 MSYS/Base/bzip2/bzip2-1.0.6-1/libbz2-1.0.6-1-msys-1.0.17-dll-1.tar.lzma/download \
-MSYS/Base/coreutils/coreutils-5.97-3/coreutils-5.97-3-msys-1.0.13-bin.tar.lzma/download \
 MSYS/Base/coreutils/coreutils-5.97-3/coreutils-5.97-3-msys-1.0.13-doc.tar.lzma/download \
 MSYS/Base/coreutils/coreutils-5.97-3/coreutils-5.97-3-msys-1.0.13-ext.tar.lzma/download \
 MSYS/Base/coreutils/coreutils-5.97-3/coreutils-5.97-3-msys-1.0.13-lang.tar.lzma/download \
 MSYS/Base/coreutils/coreutils-5.97-3/coreutils-5.97-3-msys-1.0.13-lic.tar.lzma/download \
-MSYS/Base/diffutils/diffutils-2.8.7.20071206cvs-3/diffutils-2.8.7.20071206cvs-3-msys-1.0.13-bin.tar.lzma/download \
 MSYS/Base/diffutils/diffutils-2.8.7.20071206cvs-3/diffutils-2.8.7.20071206cvs-3-msys-1.0.13-doc.tar.lzma/download \
 MSYS/Base/diffutils/diffutils-2.8.7.20071206cvs-3/diffutils-2.8.7.20071206cvs-3-msys-1.0.13-lang.tar.lzma/download \
 MSYS/Base/diffutils/diffutils-2.8.7.20071206cvs-3/diffutils-2.8.7.20071206cvs-3-msys-1.0.13-lic.tar.lzma/download \
-MSYS/Base/gawk/gawk-3.1.7-2/gawk-3.1.7-2-msys-1.0.13-bin.tar.lzma/download \
 MSYS/Base/gawk/gawk-3.1.7-2/gawk-3.1.7-2-msys-1.0.13-doc.tar.lzma/download \
 MSYS/Base/gawk/gawk-3.1.7-2/gawk-3.1.7-2-msys-1.0.13-lang.tar.lzma/download \
 MSYS/Base/gawk/gawk-3.1.7-2/gawk-3.1.7-2-msys-1.0.13-lic.tar.lzma/download \
@@ -43,33 +41,39 @@ MSYS/Base/gettext/gettext-0.18.1.1-1/gettext-0.18.1.1-1-msys-1.0.17-ext.tar.lzma
 MSYS/Base/gettext/gettext-0.18.1.1-1/gettext-0.18.1.1-1-msys-1.0.17-lic.tar.lzma/download \
 MSYS/Base/gettext/gettext-0.18.1.1-1/libasprintf-0.18.1.1-1-msys-1.0.17-dll-0.tar.lzma/download \
 MSYS/Base/gettext/gettext-0.18.1.1-1/libgettextpo-0.18.1.1-1-msys-1.0.17-dll-0.tar.lzma/download \
-MSYS/Base/grep/grep-2.5.4-2/grep-2.5.4-2-msys-1.0.13-bin.tar.lzma/download \
 MSYS/Base/grep/grep-2.5.4-2/grep-2.5.4-2-msys-1.0.13-doc.tar.lzma/download \
 MSYS/Base/grep/grep-2.5.4-2/grep-2.5.4-2-msys-1.0.13-lang.tar.lzma/download \
 MSYS/Base/grep/grep-2.5.4-2/grep-2.5.4-2-msys-1.0.13-lic.tar.lzma/download \
-MSYS/Base/gzip/gzip-1.3.12-2/gzip-1.3.12-2-msys-1.0.13-bin.tar.lzma/download \
 MSYS/Base/gzip/gzip-1.3.12-2/gzip-1.3.12-2-msys-1.0.13-doc.tar.lzma/download \
 MSYS/Base/gzip/gzip-1.3.12-2/gzip-1.3.12-2-msys-1.0.13-lic.tar.lzma/download \
-MSYS/Base/less/less-436-2/less-436-2-msys-1.0.13-bin.tar.lzma/download \
 MSYS/Base/less/less-436-2/less-436-2-msys-1.0.13-doc.tar.lzma/download \
 MSYS/Base/less/less-436-2/less-436-2-msys-1.0.13-lic.tar.lzma/download \
 MSYS/Base/libiconv/libiconv-1.14-1/libiconv-1.14-1-msys-1.0.17-bin.tar.lzma/download \
 MSYS/Base/libiconv/libiconv-1.14-1/libiconv-1.14-1-msys-1.0.17-doc.tar.lzma/download \
 MSYS/Base/libiconv/libiconv-1.14-1/libiconv-1.14-1-msys-1.0.17-lic.tar.lzma/download \
-MSYS/Base/libiconv/libiconv-1.14-1/libcharset-1.14-1-msys-1.0.17-dll-1.tar.lzma/download \
 MSYS/Base/regex/regex-1.20090805-2/regex-1.20090805-2-msys-1.0.13-doc.tar.lzma/download \
 MSYS/Base/regex/regex-1.20090805-2/regex-1.20090805-2-msys-1.0.13-lic.tar.lzma/download \
-MSYS/Base/sed/sed-4.2.1-2/sed-4.2.1-2-msys-1.0.13-bin.tar.lzma/download \
 MSYS/Base/sed/sed-4.2.1-2/sed-4.2.1-2-msys-1.0.13-doc.tar.lzma/download \
 MSYS/Base/sed/sed-4.2.1-2/sed-4.2.1-2-msys-1.0.13-lang.tar.lzma/download \
 MSYS/Base/sed/sed-4.2.1-2/sed-4.2.1-2-msys-1.0.13-lic.tar.lzma/download \
 MSYS/Base/termcap/termcap-0.20050421_1-2/termcap-0.20050421_1-2-msys-1.0.13-bin.tar.lzma/download \
 MSYS/Base/termcap/termcap-0.20050421_1-2/termcap-0.20050421_1-2-msys-1.0.13-doc.tar.lzma/download \
 MSYS/Base/termcap/termcap-0.20050421_1-2/termcap-0.20050421_1-2-msys-1.0.13-lic.tar.lzma/download \
-MSYS/Base/termcap/termcap-0.20050421_1-2/libtermcap-0.20050421_1-2-msys-1.0.13-dll-0.tar.lzma/download \
-MSYS/Base/xz/xz-5.0.3-1/xz-5.0.3-1-msys-1.0.17-bin.tar.lzma/download \
 MSYS/Base/xz/xz-5.0.3-1/xz-5.0.3-1-msys-1.0.17-doc.tar.lzma/download \
 MSYS/Base/xz/xz-5.0.3-1/xz-5.0.3-1-msys-1.0.17-lic.tar.lzma/download \
+"
+msys_BaseSystem_old="
+MSYS/Base/bzip2/bzip2-1.0.6-1/bzip2-1.0.6-1-msys-1.0.17-bin.tar.lzma/download \
+MSYS/Base/coreutils/coreutils-5.97-3/coreutils-5.97-3-msys-1.0.13-bin.tar.lzma/download \
+MSYS/Base/diffutils/diffutils-2.8.7.20071206cvs-3/diffutils-2.8.7.20071206cvs-3-msys-1.0.13-bin.tar.lzma/download \
+MSYS/Base/gawk/gawk-3.1.7-2/gawk-3.1.7-2-msys-1.0.13-bin.tar.lzma/download \
+MSYS/Base/grep/grep-2.5.4-2/grep-2.5.4-2-msys-1.0.13-bin.tar.lzma/download \
+MSYS/Base/gzip/gzip-1.3.12-2/gzip-1.3.12-2-msys-1.0.13-bin.tar.lzma/download \
+MSYS/Base/less/less-436-2/less-436-2-msys-1.0.13-bin.tar.lzma/download \
+MSYS/Base/libiconv/libiconv-1.14-1/libcharset-1.14-1-msys-1.0.17-dll-1.tar.lzma/download \
+MSYS/Base/sed/sed-4.2.1-2/sed-4.2.1-2-msys-1.0.13-bin.tar.lzma/download \
+MSYS/Base/termcap/termcap-0.20050421_1-2/libtermcap-0.20050421_1-2-msys-1.0.13-dll-0.tar.lzma/download \
+MSYS/Base/xz/xz-5.0.3-1/xz-5.0.3-1-msys-1.0.17-bin.tar.lzma/download \
 MSYS/Base/xz/xz-5.0.3-1/liblzma-5.0.3-1-msys-1.0.17-dll-5.tar.lzma/download \
 "
 
@@ -79,9 +83,11 @@ MSYS/Extension/expat/expat-2.0.1-1/libexpat-2.0.1-1-msys-1.0.13-dll-1.tar.lzma/d
 
 #separated because it is in use while running script
 msys_BaseSystem_bash="
-MSYS/Base/bash/bash-3.1.17-4/bash-3.1.17-4-msys-1.0.16-bin.tar.lzma/download \
 MSYS/Base/bash/bash-3.1.17-4/bash-3.1.17-4-msys-1.0.16-doc.tar.lzma/download \
 MSYS/Base/bash/bash-3.1.17-4/bash-3.1.17-4-msys-1.0.16-lic.tar.lzma/download \
+"
+msys_BaseSystem_bash_old="
+MSYS/Base/bash/bash-3.1.17-4/bash-3.1.17-4-msys-1.0.16-bin.tar.lzma/download \
 "
 
 msys_components=" \
@@ -287,18 +293,13 @@ http://sourceforge.net/projects/tdm-gcc/files/TDM-GCC%204.6%20series/4.6.1-tdm-1
 http://sourceforge.net/projects/tdm-gcc/files/TDM-GCC%204.6%20series/4.6.1-tdm-1%20SJLJ/gcc-4.6.1-tdm-1-c++.tar.lzma/download \
 "
 
-#http://komisar.gin.by/mingw/index.html
-mingw32_komisar=" \
-http://komisar.gin.by/mingw/cross-mingw-w64.gcc453.20110720.7z
-"
-
 mingw32_utils=" \
-http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/pkg-config_0.23-3_win32.zip \
-http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/pkg-config-dev_0.23-3_win32.zip \
+http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/pkg-config_0.26-1_win32.zip \
+http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/pkg-config-dev_0.26-1_win32.zip \
 "
 
-win32_yasm="http://www.tortall.net/projects/yasm/releases/yasm-1.1.0-win32.exe"
-win32_nasm="http://www.nasm.us/pub/nasm/releasebuilds/2.09.01/win32/nasm-2.09.01-win32.zip"
+win32_yasm="http://www.tortall.net/projects/yasm/releases/yasm-1.2.0-win32.exe"
+win32_nasm="http://www.nasm.us/pub/nasm/releasebuilds/2.10/win32/nasm-2.10-win32.zip"
 rar_cli="http://www.rarlab.com/rar/unrarw32.exe"
 
 dx7_headers="http://www.mplayerhq.hu/MPlayer/contrib/win32/dx7headers.tgz"
@@ -432,7 +433,7 @@ rm -rf "${tempdir}"
 
 #extract msys stuff
 echo "Extracting MSYS components and updates..."
-for group in msys_BaseSystem msys_BaseSystem_dependencies msys_components msys_components_dependencies msys_autogen; do
+for group in msys_BaseSystem msys_BaseSystem_dependencies msys_BaseSystem_bash msys_components msys_components_dependencies msys_autogen; do
   extract_files "${msysoutput}" "${group}"
 done
 
@@ -509,13 +510,13 @@ if exist "%VSENVPATH%vsvars32.bat" (\
 )\
 SET VSENVPATH='
 
-sed -i '/^rem to represent.$/ {
+sed -i -e '/^rem to represent.$/ {
   :again
   N
   /\nrem ember value of GOTO: is used to know recursion has happened.$/ !b again
 
   s/^\(rem to represent.\n\).*\(\nrem ember value of GOTO: is used to know recursion has happened.\)$/\1\n'"${msvc}"'\n\2/
-  }' "${msysoutput}/msys.bat"
+  }' -e 's/-fg %FGCOLOR% -bg %BGCOLOR% -sr -fn Courier-12/-fg grey90 -bg black -sr -fn "Lucida Console-14"/' "${msysoutput}/msys.bat"
 
 echo "Modifying /etc/profile ..."
 #modify /etc/profile with pkg-config and other vars
@@ -533,14 +534,6 @@ echo -e "Confirm the paths in /etc/fstab below are correct:"
 echo
 cat /etc/fstab
 echo -e "\n"
-
-#extract bash separately since it is in use
-echo "Extracting BASH..."
-tempdir="/tmp/others${RANDOM}"
-extract_files "${tempdir}" msys_BaseSystem_bash
-echo -e "Manually copy these files after exiting the shell:\n"\
-"From: ${tempdir}\n"\
-"To  : ${msysoutput}\n"
 
 echo -e "\nDone!"
 

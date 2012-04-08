@@ -7,7 +7,7 @@ ${StrLoc}
 
 RequestExecutionLevel admin
 
-!define version "0.0.0.4"
+!define version "0.0.0.7"
 !define name "Simulcast MSys/MinGW"
 !define icon "C:\msys\msys.ico"
 !define dir_name "msys"
@@ -60,10 +60,10 @@ Section - "${name}"
 	File /a /r /x home C:\msys\*
 	
 	#generate /etc/fstab
-	FileOpen $0 "$INSTDIR\etc\fstab" w
-	FileWrite $0 '$INSTDIR/mingw$\t$\t/mingw$\n'
-	FileWrite $0 '$INSTDIR/1.0/lib/perl5/5.6   /perl$\n'
-	FileClose $0
+	#FileOpen $0 "$INSTDIR\etc\fstab" w
+	#FileWrite $0 '$INSTDIR/mingw$\t$\t/mingw$\n'
+	#FileWrite $0 '$INSTDIR/1.0/lib/perl5/5.6   /perl$\n'
+	#FileClose $0
 	
 	#update /etc/profile with needed MX theme
 	FileOpen $0 "$INSTDIR\etc\profile" a
@@ -71,16 +71,18 @@ Section - "${name}"
 	FileWrite $0 'export MX_RC_FILE="$INSTDIR\mingw\share\mx\style\default.css"$\n'
 	FileClose $0
 	
-	#add install dirs to PATH
-	${EnvVarUpdate} $0 "PATH" "A" "HKLM" "$INSTDIR\bin"
-	${EnvVarUpdate} $0 "PATH" "A" "HKLM" "$INSTDIR\mingw\bin"
-	
 	WriteRegStr HKLM "${inst_reg}" "DisplayName" "${name}"
 	WriteRegStr HKLM "${inst_reg}" "UninstallString" '"$INSTDIR\uninstall.exe"'
 	WriteRegDWORD HKLM "${inst_reg}" "NoModify" 1
 	WriteRegDWORD HKLM "${inst_reg}" "NoRepair" 1
 	WriteUninstaller "uninstall.exe"
 
+SectionEnd
+
+Section "Add bin directories to the PATH"
+	#add install dirs to PATH
+	${EnvVarUpdate} $0 "PATH" "A" "HKLM" "$INSTDIR\bin"
+	${EnvVarUpdate} $0 "PATH" "A" "HKLM" "$INSTDIR\mingw\bin"
 SectionEnd
 
 Section "Start Menu Program Group"
@@ -100,6 +102,10 @@ Section "Uninstall"
 	
 	${un.EnvVarUpdate} $0 "PATH" "R" "HKLM" "$INSTDIR\bin"
 	${un.EnvVarUpdate} $0 "PATH" "R" "HKLM" "$INSTDIR\mingw\bin"
+
+	Delete "$DESKTOP\${name}.lnk"
+	
+	RMDir /r "$SMPROGRAMS\${dir_name}"
 
 	#bad, but I am a lazy script writer and there are >20k files
 	RMDir /r $INSTDIR
