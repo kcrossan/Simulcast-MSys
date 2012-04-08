@@ -17,7 +17,7 @@ gst-plugins-base RELEASE-0.10.35
 gst-plugins-good RELEASE-0.10.30
 gst-plugins-bad RELEASE-0.10.22
 gst-plugins-ugly RELEASE-0.10.18
-gst-plugins-gl
+gst-plugins-gl eecfd97bb8ed40ea34e0a109f2555edfd4a8222e
 gst-ffmpeg RELEASE-0.10.13
 '
 FOR_IFS='
@@ -74,7 +74,7 @@ else
 	done
 	
 	#build hacks
-	sed -i -e "s/CONFIGURE_DEF_OPT='--enable-maintainer-mode --enable-gtk-doc'/CONFIGURE_DEF_OPT='--enable-maintainer-mode --enable-gtk-doc --with-plugins --enable-dshowsrcwrapper --enable-dshowvideosink --enable-dshowdecwrapper --disable-gsettings --disable-apexsink'/" gst-plugins-bad/autogen.sh
+	sed -i -e "s/CONFIGURE_DEF_OPT='--enable-maintainer-mode --enable-gtk-doc'/CONFIGURE_DEF_OPT='--enable-maintainer-mode --enable-gtk-doc --with-plugins --enable-dshowsrcwrapper --enable-dshowvideosink --enable-dshowdecwrapper --disable-gsettings --disable-apexsink --disable-cog'/" gst-plugins-bad/autogen.sh
 	sed -i -e 's/if test \-x \$have_svn \&\& \[ \$have_svn \];/if test \-x "\$have_svn" \&\& [ "\$have_svn" ];/' -e "s/autogen_options \$@/CONFIGURE_DEF_OPT='--with-ffmpeg-extra-configure=--disable-asm'\n\nautogen_options \$@/" gst-ffmpeg/autogen.sh
 	
 	#build source
